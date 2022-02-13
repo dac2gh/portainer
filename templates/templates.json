@@ -23,6 +23,10 @@
 				{
 					"name":"REDIS_SENTINEL_PASSWORD",
 					"label":"Sentinel password"
+				},
+				{
+					"name":"REDIS_VERSION",
+					"label":"Redis version"
 				}
 			]
 		}
