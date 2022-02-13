@@ -6,7 +6,7 @@ networks:
 
 services:
   redis01:
-    image: 'bitnami/redis:latest'
+    image: "bitnami/redis:${REDIS_VERSION}"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_REPLICATION_MODE=master
@@ -16,7 +16,7 @@ services:
       - redis_mon
 
   redis02:
-    image: 'bitnami/redis:latest'
+    image: "bitnami/redis:${REDIS_VERSION}"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_REPLICATION_MODE=slave
@@ -28,7 +28,7 @@ services:
       - redis_mon
 
   redis03:
-    image: 'bitnami/redis:latest'
+    image: "bitnami/redis:${REDIS_VERSION}"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_REPLICATION_MODE=slave
