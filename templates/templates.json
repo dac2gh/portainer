@@ -1,0 +1,30 @@
+{
+	"version":"2",
+	"templates":[
+ {
+			"type":3,
+			"title":"Test",
+			"description":"Test",
+			"note":"Test",
+			"categories":[
+				"Cloud"
+			],
+			"platform":"linux",
+			"logo":"https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/intel.png",
+			"repository":{
+				"url":"https://github.com/dac2gh/portainer",
+				"stackfile":"templates/stacks/redis.yml"
+			},
+			"env":[
+				{
+					"name":"POSTGRES_USER",
+					"label":"Database user"
+				},
+				{
+					"name":"POSTGRES_PASSWORD",
+					"label":"Database password"
+				}
+			]
+		}
+  ]
+}
