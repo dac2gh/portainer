@@ -27,6 +27,20 @@
 				{
 					"name":"REDIS_VERSION",
 					"label":"Redis version"
+					"select": [
+					{
+						"text": "latest",
+						"value": "latest",
+						"default": true
+					},
+					{
+						"text": "6.2",
+						"value": "6.2"
+					},
+					{
+						"text": "6.0",
+						"value": "6.0"
+					}
 				}
 			]
 		}
