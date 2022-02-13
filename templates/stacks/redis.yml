@@ -1,0 +1,82 @@
+version: '3'
+
+networks:
+  redis_mon:
+    driver: bridge
+
+services:
+  redis01:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_REPLICATION_MODE=master
+    ports:
+      - 16379:6379
+    networks:
+      - redis_mon
+
+  redis02:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis01
+      - REDIS_MASTER_PORT_NUMBER=6379
+    ports:
+      - 26379:6379
+    networks:
+      - redis_mon
+
+  redis03:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis01
+      - REDIS_MASTER_PORT_NUMBER=6379
+    ports:
+      - 36379:6379
+    networks:
+      - redis_mon
+
+  sentinel01:
+    image: 'bitnami/redis-sentinel:latest'
+    environment:
+      - REDIS_MASTER_SET=redis-cl01
+      - REDIS_MASTER_HOST=redis01
+      - REDIS_SENTINEL_QUORUM=${REDIS_SENTINEL_QUORUM}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_SENTINEL_PASSWORD}
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=60000
+    ports:
+      - 10001:26379
+    networks:
+      - redis_mon
+
+  sentinel02:
+    image: 'bitnami/redis-sentinel:latest'
+    environment:
+      - REDIS_MASTER_SET=redis-cl01
+      - REDIS_MASTER_HOST=redis01
+      - REDIS_SENTINEL_QUORUM=${REDIS_SENTINEL_QUORUM}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_SENTINEL_PASSWORD}
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=60000
+    ports:
+      - 10002:26379
+    networks:
+      - redis_mon
+
+  sentinel03:
+    image: 'bitnami/redis-sentinel:latest'
+    environment:
+      - REDIS_MASTER_SET=redis-cl01
+      - REDIS_MASTER_HOST=redis01
+      - REDIS_SENTINEL_QUORUM=${REDIS_SENTINEL_QUORUM}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_SENTINEL_PASSWORD}
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=60000
+    ports:
+      - 10003:26379
+    networks:
+      - redis_mon
